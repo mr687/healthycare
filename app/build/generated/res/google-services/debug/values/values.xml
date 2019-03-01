@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">232710095940-7499ek9g0k2bht9ssego48p7uc10nacd.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://healthycare-1849d.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">232710095940</string>
+    <string name="google_api_key" translatable="false">AIzaSyBoBT2nyV-T-P9FpjSCpkusI2vnkP8F5kU</string>
+    <string name="google_app_id" translatable="false">1:232710095940:android:19835165237facf7</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBoBT2nyV-T-P9FpjSCpkusI2vnkP8F5kU</string>
+    <string name="google_storage_bucket" translatable="false">healthycare-1849d.appspot.com</string>
+    <string name="project_id" translatable="false">healthycare-1849d</string>
+</resources>

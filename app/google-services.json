@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "232710095940-kf7f3jtqql5eim2mh2p849lf8osi21qg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.healthycare",
+            "certificate_hash": "9c4093fbadbfbd31adc69f09a9e3887cc820f196"
+          }
+        },
+        {
           "client_id": "232710095940-7499ek9g0k2bht9ssego48p7uc10nacd.apps.googleusercontent.com",
           "client_type": 3
         }
