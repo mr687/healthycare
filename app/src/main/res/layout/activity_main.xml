@@ -4,6 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+        <Button
+            android:id="@+id/btn_start_inspection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/start_inspection"
+            android:textColor="@color/colorWhite"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/text_button_size"/>
+        <Button
+            android:id="@+id/btn_history_inspection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/history_inspection"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_button_size"/>
+        <Button
+            android:id="@+id/btn_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/about"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_button_size"/>
+        <Button
+            android:id="@+id/btn_sign_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/txt_sign_out"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_button_size"/>
+    </LinearLayout>
 
 </RelativeLayout>

@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">Healthy Care</string>
-    <!-- Strings related to login -->
+    <string name="logo_content_description">Logo</string>
+    <string name="email_hint">Email</string>
+    <string name="name_hint">Full name</string>
+    <string name="password_hint">Password</string>
+    <string name="gender_hint">Gender</string>
+    <string name="age_hint">Age</string>
+    <string name="txt_sign_in">Sign In</string>
+    <string name="txt_sign_up">Sign Up</string>
+    <string name="txt_sign_out">Keluar</string>
+    <string name="no_account_yet"><u>No account yet? Create one</u>.</string>
+    <string name="already_account"><u>Already account? Sign in here</u>.</string>
+    <array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </array>
+    <string name="start_inspection">Mulai Pemeriksaan</string>
+    <string name="history_inspection">Riwayat Pemeriksaan</string>
+    <string name="about">Tentang</string>
 </resources>

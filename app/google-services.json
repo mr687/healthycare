@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "232710095940",
+    "firebase_url": "https://healthycare-1849d.firebaseio.com",
+    "project_id": "healthycare-1849d",
+    "storage_bucket": "healthycare-1849d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232710095940:android:19835165237facf7",
+        "android_client_info": {
+          "package_name": "com.company.healthycare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232710095940-60u4rrvq40958ie61t5m1ejqsqmtveju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.healthycare",
+            "certificate_hash": "dbea87aa42683a2c834f12e07e8839200fae2c07"
+          }
+        },
+        {
+          "client_id": "232710095940-7499ek9g0k2bht9ssego48p7uc10nacd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoBT2nyV-T-P9FpjSCpkusI2vnkP8F5kU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232710095940-7499ek9g0k2bht9ssego48p7uc10nacd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
