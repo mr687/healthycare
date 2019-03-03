@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/media/D/PROJECT/Programming/Android/healthycare/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-as/values-as.xml",
+            "outputFile": "D:\\Android\\Projects\\healthycare\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-as\\values-as.xml",
             "map": [
                 {
-                    "source": "/home/daphh/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/57245d171f3f87f143c5b0c6442aa435/res/values-as/values.xml",
+                    "source": "C:\\Users\\rasdhan alfarizqi\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-16.0.1.aar\\03d37d1fa53805e623f1ea19d7b7165c\\res\\values-as\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/home/daphh/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/61303e89f602b871d2d77d628bc2c333/res/values-as/values.xml",
+                    "source": "C:\\Users\\rasdhan alfarizqi\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.0.1.aar\\5942d89f972396d95b84d08b46583f0d\\res\\values-as\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",

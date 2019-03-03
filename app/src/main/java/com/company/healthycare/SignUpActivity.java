@@ -44,11 +44,12 @@ implements View.OnClickListener {
         txtEmail = findViewById(R.id.txt_email);
         txtPassword = findViewById(R.id.txt_password);
         progressBar = findViewById(R.id.progress_bar);
-
+        
+        btnSignUp.setOnClickListener(this);
         textClickLogin.setOnClickListener(this);
     }
+
     private void doRegister(){
-        progressBar.setVisibility(View.VISIBLE);
         String email = txtEmail.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
 
@@ -69,13 +70,14 @@ implements View.OnClickListener {
             txtPassword.requestFocus();
             return;
         }
+        progressBar.setVisibility(View.VISIBLE);
 
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Account registered successfull.",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"Account registered successfull.",Toast.LENGTH_LONG).show();
                     finish();
                 }else{
                     if(task.getException() instanceof FirebaseAuthUserCollisionException){
@@ -83,7 +85,7 @@ implements View.OnClickListener {
                         txtEmail.requestFocus();
                         return;
                     }else{
-                        Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG).show();
                     }
                 }
             }

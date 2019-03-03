@@ -46,8 +46,17 @@ implements View.OnClickListener {
         textClickCreate.setOnClickListener(this);
         btnSignIn.setOnClickListener(this);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser() != null){
+            finish();
+            startActivity(new Intent(this,MainActivity.class));
+        }
+    }
+
     private void doSIgnIn(){
-        progressBar.setVisibility(View.VISIBLE);
         String email = txtEmail.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
 
@@ -69,16 +78,19 @@ implements View.OnClickListener {
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
+                    finish();
                     Intent it = new Intent(LoginActivity.this,MainActivity.class);
-                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(it);
                 }else{
-                    Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG).show();
                     return;
                 }
             }

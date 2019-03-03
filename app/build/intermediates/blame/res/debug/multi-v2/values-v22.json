@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/media/D/PROJECT/Programming/Android/healthycare/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v22/values-v22.xml",
+            "outputFile": "D:\\Android\\Projects\\healthycare\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v22\\values-v22.xml",
             "map": [
                 {
-                    "source": "/home/daphh/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/23001f96e3955969d3be98cd1fc4bc7c/res/values-v22/values-v22.xml",
+                    "source": "C:\\Users\\rasdhan alfarizqi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\8c553c46ad1b40df7fa3a7695a8277d1\\res\\values-v22\\values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",

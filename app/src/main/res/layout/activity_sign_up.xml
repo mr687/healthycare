@@ -20,19 +20,11 @@
         android:layout_centerVertical="true"
         android:padding="30dp"
         android:layout_centerHorizontal="true">
-        <android.support.design.widget.TextInputLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/txt_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/name_hint"
-                android:drawableStart="@drawable/ic_person_black_24dp"
-                android:drawablePadding="@dimen/drawable_left_padding"
-                android:inputType="textEmailAddress"
-                android:backgroundTint="@color/colorPrimaryDark"/>
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="110dp"
+            android:contentDescription="@string/logo_content_description"
+            android:src="@drawable/logo"/>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -59,24 +51,8 @@
                 android:inputType="textPassword"
                 android:backgroundTint="@color/colorPrimaryDark"/>
         </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/txt_age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/age_hint"
-                android:drawableStart="@drawable/ic_date_range_black_24dp"
-                android:drawablePadding="@dimen/drawable_left_padding"
-                android:inputType="number"
-                android:backgroundTint="@color/colorPrimaryDark"/>
-        </android.support.design.widget.TextInputLayout>
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/gender"
-            android:padding="10dp"></Spinner>
+
+
         <Button
             android:id="@+id/btn_sign_up"
             android:layout_marginTop="20dp"

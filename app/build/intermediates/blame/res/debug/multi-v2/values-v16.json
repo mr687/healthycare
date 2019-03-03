@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/media/D/PROJECT/Programming/Android/healthycare/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
+            "outputFile": "D:\\Android\\Projects\\healthycare\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "/home/daphh/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/3b128d32e183b3e55835277c28f374fe/res/values-v16/values-v16.xml",
+                    "source": "C:\\Users\\rasdhan alfarizqi\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\e21729f262554ae313178bfea17a69fd\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/home/daphh/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/23001f96e3955969d3be98cd1fc4bc7c/res/values-v16/values-v16.xml",
+                    "source": "C:\\Users\\rasdhan alfarizqi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\8c553c46ad1b40df7fa3a7695a8277d1\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
