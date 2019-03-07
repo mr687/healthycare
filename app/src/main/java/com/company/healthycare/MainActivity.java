@@ -1,5 +1,8 @@
 package com.company.healthycare;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -39,9 +42,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_logout:
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                Dialog.OnClickListener dialogOnclickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                FirebaseAuth.getInstance().signOut();
+                                finish();
+                                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialogInterface.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Apakah anda yakin?").setPositiveButton("Iya",dialogOnclickListener)
+                        .setNegativeButton("Tidak",dialogOnclickListener).show();
                 break;
             case R.id.nav_about:
 

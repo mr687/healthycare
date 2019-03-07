@@ -827,10 +827,15 @@ drawable ic_delete_black_24dp
 drawable ic_email_black_24dp
 drawable ic_exit_to_app_black_24dp
 drawable ic_image_black_24dp
+drawable ic_info_black_24dp
+drawable ic_keyboard_arrow_right_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable ic_notifications_black_24dp
 drawable ic_person_black_24dp
 drawable ic_refresh_black_24dp
+drawable ic_search_black_24dp
+drawable ic_sync_black_24dp
 drawable ic_vpn_key_black_24dp
 drawable logo
 drawable navigation_empty_icon
@@ -846,6 +851,8 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable outline_check_box_black_24dp
+drawable outline_check_box_outline_blank_black_24dp
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
@@ -871,7 +878,6 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
-id action_settings
 id action_text
 id actions
 id activity_chooser_view_content
@@ -889,9 +895,11 @@ id beginning
 id blocking
 id bottom
 id btn_cancel
+id btn_check
 id btn_history_inspection
 id btn_save
 id btn_sign_in
+id btn_sign_in_with_google
 id btn_sign_up
 id btn_start_inspection
 id buttonPanel
@@ -950,6 +958,7 @@ id icon_group
 id icon_only
 id ifRoom
 id image
+id img_check
 id img_logo_view
 id info
 id invisible
@@ -962,6 +971,7 @@ id line1
 id line3
 id listMode
 id list_item
+id listview
 id masked
 id media_actions
 id message
@@ -1062,6 +1072,7 @@ id txt_click_create
 id txt_click_login
 id txt_email
 id txt_full_name
+id txt_indication_title
 id txt_password
 id uniform
 id up
@@ -1115,6 +1126,7 @@ layout activity_main
 layout activity_profile
 layout activity_sign_up
 layout activity_splash_screen
+layout activity_survey
 layout bottom_sheet
 layout content_profile
 layout design_bottom_navigation_item
@@ -1131,6 +1143,7 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout list_indication_items
 layout notification_action
 layout notification_action_tombstone
 layout notification_media_action
@@ -1151,7 +1164,6 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 menu menu
-menu menu_profile
 mipmap ic_launcher
 mipmap ic_launcher_foreground
 mipmap ic_launcher_round
@@ -1185,7 +1197,6 @@ string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string about
-string action_settings
 string age_hint
 string already_account
 string app_name
@@ -1222,7 +1233,6 @@ string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
 string history_inspection
-string large_text
 string logo_content_description
 string name_hint
 string no_account_yet
