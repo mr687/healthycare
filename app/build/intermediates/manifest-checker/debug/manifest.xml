@@ -26,6 +26,11 @@
         android:theme="@style/AppTheme" >
         <activity android:name="com.company.healthycare.activity.LoginActivity" />
         <activity android:name="com.company.healthycare.activity.SplashScreenActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.company.healthycare.activity.SignUpActivity" />
         <activity
@@ -42,11 +47,6 @@
         <activity
             android:name="com.company.healthycare.activity.ResultSurveyActivity"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.google.firebase.auth.internal.FederatedSignInActivity"

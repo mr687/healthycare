@@ -34,8 +34,11 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class SurveyActivity extends AppCompatActivity
 implements View.OnClickListener {
@@ -176,18 +179,18 @@ implements View.OnClickListener {
                             if(sel.getValueCF() == max){
                                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                                 final FirebaseUser mUser = mAuth.getCurrentUser();
-                                final String IDDisease = sel.getIdDisease();
                                 HeaderDiagnosisModel hm = new HeaderDiagnosisModel();
                                 hm.setValueCF(sel.getValueCF());
                                 hm.setIdDisease(sel.getIdDisease());
+                                final String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
                                 mDatabase.getReference("HeaderDiagnosis")
                                         .child(mUser.getUid())
+                                        .child(date)
                                         .setValue(hm)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(task.isSuccessful()){
-                                                    mReference.child("DetailDiagnosis").child(mUser.getUid()).removeValue();
                                                     for(int i =0; i< valueCF.size();i++){
                                                         final DetailDiagnosaModel dm = new DetailDiagnosaModel();
                                                         dm.setIdIndication(valueCF.get(i));
@@ -205,6 +208,7 @@ implements View.OnClickListener {
                                                                         }
                                                                         mReference.child("DetailDiagnosis")
                                                                                 .child(mUser.getUid())
+                                                                                .child(date)
                                                                                 .child(count+"")
                                                                                 .setValue(dm)
                                                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -223,6 +227,7 @@ implements View.OnClickListener {
                                                     progressDialog.dismiss();
                                                     Intent it = new Intent(SurveyActivity.this,ResultSurveyActivity.class);
                                                     it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    it.putExtra("date",date);
                                                     startActivity(it);
                                                     finish();
                                                 }
@@ -253,6 +258,11 @@ implements View.OnClickListener {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     @Override

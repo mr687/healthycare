@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.company.healthycare.R;
@@ -17,6 +18,7 @@ import com.company.healthycare.model.DetailDiagnosaModel;
 import com.company.healthycare.model.DiseasesModel;
 import com.company.healthycare.model.HeaderDiagnosisModel;
 import com.company.healthycare.model.IndicationsModel;
+import com.company.healthycare.model.RelationsModel;
 import com.company.healthycare.model.UsersModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,13 +40,23 @@ public class ResultSurveyActivity extends AppCompatActivity {
     ListView listView;
     List<IndicationsModel> listIndication;
     List<DiseasesModel> listDisease;
+    List<RelationsModel> listRelation;
     List<HeaderDiagnosisModel> diagnosis;
     TextView title;
+    TextView txtDisease,txtValueCF,txtPersent,txtTreatment,txtDate;
+    String date;
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_survey);
+
+        date = getIntent().getExtras().getString("date");
 
         listView = findViewById(R.id.list_view);
         title = findViewById(R.id.title);
@@ -52,6 +64,7 @@ public class ResultSurveyActivity extends AppCompatActivity {
         listDisease = new ArrayList<>();
         listIndication = new ArrayList<>();
         diagnosis = new ArrayList<>();
+        listRelation = new ArrayList<>();
 
         mDatabase = FirebaseDatabase.getInstance();
         mReference = mDatabase.getReference();
@@ -66,7 +79,14 @@ public class ResultSurveyActivity extends AppCompatActivity {
         txtAge = findViewById(R.id.txt_age);
         txtEmail = findViewById(R.id.txt_email);
         txtGender = findViewById(R.id.txt_gender);
-        
+
+        txtDisease = findViewById(R.id.txt_disease);
+        txtValueCF = findViewById(R.id.txt_value_cf);
+        txtPersent = findViewById(R.id.txt_persent);
+        txtTreatment = findViewById(R.id.txt_treatment);
+        txtDate = findViewById(R.id.txt_date);
+
+        txtDate.setText(date);
         loadProfileInformation();
     }
 
@@ -83,16 +103,61 @@ public class ResultSurveyActivity extends AppCompatActivity {
                         }
                         mReference.child("HeaderDiagnosis")
                                 .child(mUser.getUid())
+                                .child(date)
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         HeaderDiagnosisModel header = dataSnapshot.getValue(HeaderDiagnosisModel.class);
                                         for(DiseasesModel disease : listDisease){
                                             if(disease.ID.equals(header.idDisease)){
+                                                final String IDDisease = disease.ID;
+                                                final float preValueCF = header.valueCF;
+                                                txtDisease.setText(": " + disease.Name);
+                                                txtValueCF.setText(": " + header.valueCF+"");
+                                                txtTreatment.setText(disease.Treatments);
+                                                mReference.child("Relations")
+                                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                listRelation.clear();
+                                                                Iterable<DataSnapshot> childr = dataSnapshot.getChildren();
+                                                                for(DataSnapshot snap : childr){
+                                                                    RelationsModel rel = snap.getValue(RelationsModel.class);
+                                                                    listRelation.add(rel);
+                                                                }
+//
+                                                                List<Float> valueCF = new ArrayList<>();
+                                                                for(RelationsModel relation : listRelation)
+                                                                {
+                                                                    if(relation.IDDiesease.equals(IDDisease)){
+                                                                        valueCF.add(relation.ValueCF);
+                                                                    }
+                                                                }
+                                                                float persent = preValueCF / calculateCF(valueCF) * 100;
+                                                                txtPersent.setText(": " + Math.floor(persent) + " %");
+                                                                progressDialog.dismiss();
+                                                            }
 
+                                                            private float calculateCF(List<Float> disease) {
+                                                                float preP = 0 ;
+                                                                if(disease.size() >= 2){
+                                                                    preP = disease.get(0) + (disease.get(1) * (1 - disease.get(0)));
+                                                                    for(int i = 2;i<disease.size();i++){
+                                                                        preP = disease.get(i) + (preP * (1 - disease.get(i)));
+                                                                    }
+                                                                }else{
+                                                                    return 0;
+                                                                }
+                                                                return preP;
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                            }
+                                                        });
                                             }
                                         }
-                                        progressDialog.dismiss();
                                     }
 
                                     @Override
@@ -122,6 +187,7 @@ public class ResultSurveyActivity extends AppCompatActivity {
                         }
                         mReference.child("DetailDiagnosis")
                                 .child(mUser.getUid())
+                                .child(date)
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -178,7 +244,7 @@ public class ResultSurveyActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot != null){
                     UsersModel users = dataSnapshot.getValue(UsersModel.class);
-                    txtAge.setText(": " + users.getAge());
+                    txtAge.setText(": " + users.getAge() + " Tahun");
                     if(users.getGender() != null && users.getGender().equals("Male")){
                         txtGender.setText(": " + "Laki-Laki");
                     }else{

@@ -64,7 +64,7 @@ public class CustomAdapter extends BaseAdapter {
         this.indications = indications;
         notifyDataSetChanged();
     }
-    class ViewHolder{
+    static class ViewHolder{
         TextView txtIndicationTitle;
         ImageView imgCheck;
     }

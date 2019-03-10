@@ -26,6 +26,13 @@
             android:orientation="vertical"
             android:padding="20dp">
             <TextView
+                android:id="@+id/txt_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Biodata Anda :"
@@ -127,6 +134,91 @@
                 android:text="Hasil diagnosa berdasarkan metode Certainty Factor (CF) :"
                 android:textSize="18dp"
                 android:textStyle="bold"/>
+            <TableLayout
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="3px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nama Penyakit"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/txt_disease"
+                        android:layout_weight="5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:text="" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="3px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nilai CF"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/txt_value_cf"
+                        android:layout_weight="5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:text="" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="3px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Persentase"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/txt_persent"
+                        android:layout_weight="5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:text="" />
+                </TableRow>
+            </TableLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saran : "
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/txt_treatment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:text="@string/notes"/>
         </LinearLayout>
     </ScrollView>
 

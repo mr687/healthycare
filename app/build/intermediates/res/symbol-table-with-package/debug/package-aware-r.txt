@@ -1072,11 +1072,16 @@ id transition_transform
 id txt_age
 id txt_click_create
 id txt_click_login
+id txt_date
+id txt_disease
 id txt_email
 id txt_full_name
 id txt_gender
 id txt_indication_title
 id txt_password
+id txt_persent
+id txt_treatment
+id txt_value_cf
 id uniform
 id up
 id useLogo
@@ -1124,6 +1129,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_history
 layout activity_login
 layout activity_main
 layout activity_profile
@@ -1242,6 +1248,7 @@ string history_inspection
 string logo_content_description
 string name_hint
 string no_account_yet
+string notes
 string password_hint
 string password_toggle_content_description
 string path_password_eye
