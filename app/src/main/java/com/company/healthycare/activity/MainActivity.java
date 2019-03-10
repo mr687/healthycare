@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity
 implements View.OnClickListener {
     FirebaseAuth mAuth;
-    Button startSurvey;
+    Button startSurvey,btnHistory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +35,10 @@ implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
 
         startSurvey = findViewById(R.id.btn_start_inspection);
+        btnHistory = findViewById(R.id.btn_history_inspection);
 
         startSurvey.setOnClickListener(this);
+        btnHistory.setOnClickListener(this);
     }
 
     @Override
@@ -71,9 +73,6 @@ implements View.OnClickListener {
                 builder.setMessage("Apakah anda yakin?").setPositiveButton("Iya",dialogOnclickListener)
                         .setNegativeButton("Tidak",dialogOnclickListener).show();
                 break;
-            case R.id.nav_about:
-
-                break;
             case R.id.nav_profile:
                 startActivity(new Intent(MainActivity.this,ProfileActivity.class));
                 break;
@@ -107,6 +106,9 @@ implements View.OnClickListener {
     public void onClick(View view) {
         if(view == startSurvey){
             Intent it = new Intent(MainActivity.this,SurveyActivity.class);
+            startActivity(it);
+        }else if(view == btnHistory){
+            Intent it = new Intent(MainActivity.this,HistoryActivity.class);
             startActivity(it);
         }
     }

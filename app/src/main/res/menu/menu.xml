@@ -7,11 +7,6 @@
         app:showAsAction="never"
         />
     <item
-        android:title="Tentang"
-        android:id="@+id/nav_about"
-        app:showAsAction="never"
-        />
-    <item
         android:title="Keluar"
         android:id="@+id/nav_logout"
         app:showAsAction="never"

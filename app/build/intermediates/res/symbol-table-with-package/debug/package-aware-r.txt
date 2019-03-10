@@ -980,7 +980,6 @@ id message
 id middle
 id mini
 id multiply
-id nav_about
 id nav_logout
 id nav_profile
 id navigation_header_container
@@ -1153,6 +1152,7 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout list_history_item
 layout list_indication_items
 layout mytextview
 layout notification_action

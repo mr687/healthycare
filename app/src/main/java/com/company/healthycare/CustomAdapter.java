@@ -44,8 +44,8 @@ public class CustomAdapter extends BaseAdapter {
         if(view == null){
             view = inflater.inflate(R.layout.list_indication_items,viewGroup,false);
             holder = new ViewHolder();
-            holder.txtIndicationTitle = (TextView) view.findViewById(R.id.txt_indication_title);
-            holder.imgCheck = (ImageView) view.findViewById(R.id.img_check);
+            holder.txtIndicationTitle = view.findViewById(R.id.txt_indication_title);
+            holder.imgCheck = view.findViewById(R.id.img_check);
 
             view.setTag(holder);
         }else{

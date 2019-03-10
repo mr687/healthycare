@@ -5,9 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.company.healthycare.model.DetailDiagnosaModel;
+import com.company.healthycare.model.DiseasesModel;
 import com.company.healthycare.model.HeaderDiagnosisModel;
 
 import java.util.List;
@@ -15,11 +16,15 @@ import java.util.List;
 public class CustomAdapterHistory extends BaseAdapter {
     Activity activity;
     List<HeaderDiagnosisModel> datas;
+    List<DiseasesModel> diseases;
+    List<String> dates;
     LayoutInflater layoutInflater;
 
-    public CustomAdapterHistory(Activity activity,List<HeaderDiagnosisModel> datas){
+    public CustomAdapterHistory(Activity activity,List<HeaderDiagnosisModel> datas,List<String> dates,List<DiseasesModel> diseases){
         this.activity = activity;
         this.datas = datas;
+        this.dates = dates;
+        this.diseases = diseases;
         layoutInflater = activity.getLayoutInflater();
     }
     @Override
@@ -49,6 +54,14 @@ public class CustomAdapterHistory extends BaseAdapter {
             view.setTag(holder);
         }else{
             holder = (CustomAdapterHistory.ViewHolder) view.getTag();
+        }
+        HeaderDiagnosisModel headerData = datas.get(i);
+        String date = dates.get(i);
+        holder.txtDate.setText(date);
+        for(DiseasesModel dm : diseases){
+            if(dm.ID.equals(headerData.idDisease)){
+                holder.txtDisease.setText(headerData.getIdDisease() + ". " + dm.Name);
+            }
         }
         return view;
     }

@@ -42,12 +42,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.company.healthycare.activity.SurveyActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.company.healthycare.activity.ResultSurveyActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.company.healthycare.activity.HistoryActivity" />
         <activity
             android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
             android:excludeFromRecents="true"
