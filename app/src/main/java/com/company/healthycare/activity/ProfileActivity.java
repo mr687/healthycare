@@ -135,7 +135,9 @@ implements View.OnClickListener {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot != null){
                         UsersModel users = dataSnapshot.getValue(UsersModel.class);
-                        txtAge.setText((users.getAge() == null) ? "" : users.getAge());
+                        if(users.getAge() != null){
+                            txtAge.setText(users.getAge());
+                        }
                         if(users.getGender() != null && users.getGender().equals("Male")){
                             spinGender.setSelection(0);
                         }else{

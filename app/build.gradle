@@ -5,9 +5,15 @@ android {
     signingConfigs {
         config {
             keyAlias 'key0'
-            keyPassword 'qwe123'
+            keyPassword 'qwe123qwe123'
             storeFile file('D:/Android/Projects/healthycare/healthycare.jks')
-            storePassword 'qwe123qwe123'
+            storePassword 'qwe123'
+        }
+        config1 {
+            keyAlias 'key1'
+            keyPassword 'qwe123qwe123'
+            storeFile file('D:/Android/Projects/healthycare/healthycare.jks')
+            storePassword 'qwe123'
         }
     }
     compileSdkVersion 27
@@ -24,6 +30,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config1
         }
     }
 }

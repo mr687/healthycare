@@ -15,27 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "232710095940-60u4rrvq40958ie61t5m1ejqsqmtveju.apps.googleusercontent.com",
+          "client_id": "232710095940-13u41nn7jv160v91qqssjlse3vu2i9k9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.company.healthycare",
-            "certificate_hash": "dbea87aa42683a2c834f12e07e8839200fae2c07"
+            "certificate_hash": "b64a5f086a3927d321d465eb7fefdfa379bea13b"
           }
         },
         {
-          "client_id": "232710095940-kf7f3jtqql5eim2mh2p849lf8osi21qg.apps.googleusercontent.com",
+          "client_id": "232710095940-l6jdgd09b0hlsvqeg1hsjhot9jjvbgc5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.company.healthycare",
-            "certificate_hash": "9c4093fbadbfbd31adc69f09a9e3887cc820f196"
-          }
-        },
-        {
-          "client_id": "232710095940-o0bpa92am5bkf65s65v55mvak2p7kvep.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.company.healthycare",
-            "certificate_hash": "5d792df3a828899bf7666dde8c07d07301430791"
+            "certificate_hash": "00983caf596cb3b9f7838c7d98ee1cd98d3276b4"
           }
         },
         {

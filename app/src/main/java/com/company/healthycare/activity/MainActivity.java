@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -88,14 +89,6 @@ implements View.OnClickListener {
         if(mAuth.getCurrentUser() == null){
             finish();
             Intent it = new Intent(this,LoginActivity.class);
-            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(it);
-        }
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null && user.getDisplayName().isEmpty()){
-            finish();
-            Intent it = new Intent(this,ProfileActivity.class);
             it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(it);
