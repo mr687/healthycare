@@ -8,23 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.company.healthycare.model.ListIndicationsModel;
 import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {
     Activity activity;
-    List<IndicationModel> indications;
+    List<ListIndicationsModel> indications;
     LayoutInflater inflater;
 
-    public CustomAdapter(Activity activity, List<IndicationModel> indication) {
+    public CustomAdapter(Activity activity, List<ListIndicationsModel> indication) {
         this.activity = activity;
         this.indications = indication;
 
         inflater = activity.getLayoutInflater();
-    }
-
-    public CustomAdapter(Activity activity) {
-
-        this.activity = activity;
     }
 
     @Override
@@ -55,7 +51,7 @@ public class CustomAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) view.getTag();
         }
-        IndicationModel model = indications.get(i);
+        ListIndicationsModel model = indications.get(i);
         holder.txtIndicationTitle.setText(model.getmIndication());
         if(model.isSelected()){
             holder.imgCheck.setBackgroundResource(R.drawable.outline_check_box_black_24dp);
@@ -64,7 +60,7 @@ public class CustomAdapter extends BaseAdapter {
         }
         return view;
     }
-    public void updateRecords(List<IndicationModel> indications){
+    public void updateRecords(List<ListIndicationsModel> indications){
         this.indications = indications;
         notifyDataSetChanged();
     }

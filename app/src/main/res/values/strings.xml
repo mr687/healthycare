@@ -21,4 +21,7 @@
     <string name="history_inspection">Riwayat Pemeriksaan</string>
     <string name="about">Tentang</string>
     <string name="title_activity_profile">Profile Activity</string>
+    <string name="title_activity_inspection">InspectionActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

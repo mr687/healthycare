@@ -624,6 +624,7 @@ dimen abc_text_size_title_material_toolbar
 dimen activity_horizontal_margin
 dimen activity_vertical_margin
 dimen app_bar_height
+dimen appbar_padding_top
 dimen compat_button_inset_horizontal_material
 dimen compat_button_inset_vertical_material
 dimen compat_button_padding_horizontal_material
@@ -971,6 +972,7 @@ id line1
 id line3
 id listMode
 id list_item
+id list_view
 id listview
 id masked
 id media_actions
@@ -1072,6 +1074,7 @@ id txt_click_create
 id txt_click_login
 id txt_email
 id txt_full_name
+id txt_gender
 id txt_indication_title
 id txt_password
 id uniform
@@ -1124,6 +1127,7 @@ layout abc_tooltip
 layout activity_login
 layout activity_main
 layout activity_profile
+layout activity_result_survey
 layout activity_sign_up
 layout activity_splash_screen
 layout activity_survey
@@ -1144,6 +1148,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout list_indication_items
+layout mytextview
 layout notification_action
 layout notification_action_tombstone
 layout notification_media_action
@@ -1197,6 +1202,7 @@ string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string about
+string action_settings
 string age_hint
 string already_account
 string app_name
@@ -1244,8 +1250,10 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string project_id
 string search_menu_title
+string section_format
 string start_inspection
 string status_bar_notification_info_overflow
+string title_activity_inspection
 string title_activity_profile
 string txt_sign_in
 string txt_sign_out

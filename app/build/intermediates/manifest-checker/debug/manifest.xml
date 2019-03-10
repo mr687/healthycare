@@ -24,19 +24,23 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.company.healthycare.LoginActivity" />
-        <activity android:name="com.company.healthycare.SplashScreenActivity" >
+        <activity android:name="com.company.healthycare.activity.LoginActivity" />
+        <activity android:name="com.company.healthycare.activity.SplashScreenActivity" >
         </activity>
-        <activity android:name="com.company.healthycare.SignUpActivity" />
+        <activity android:name="com.company.healthycare.activity.SignUpActivity" />
         <activity
-            android:name="com.company.healthycare.MainActivity"
+            android:name="com.company.healthycare.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.company.healthycare.ProfileActivity"
+            android:name="com.company.healthycare.activity.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.company.healthycare.SurveyActivity"
+            android:name="com.company.healthycare.activity.SurveyActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name="com.company.healthycare.activity.ResultSurveyActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
