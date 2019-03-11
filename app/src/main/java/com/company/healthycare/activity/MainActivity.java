@@ -29,7 +29,7 @@ implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setTitle("Healthy Care");
+        toolbar.setTitle("Heart Diseases Detector");
         toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 

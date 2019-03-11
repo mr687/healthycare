@@ -1,10 +1,34 @@
 package com.company.healthycare.model;
 
 public class HeaderDiagnosisModel {
-    public String idDisease;
-    public float valueCF;
+    int id;
+    String idUser;
+    String date;
+    String idDisease;
+    float valueCF;
 
-    public HeaderDiagnosisModel() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getIdDisease() {
@@ -23,9 +47,16 @@ public class HeaderDiagnosisModel {
         this.valueCF = valueCF;
     }
 
-    public HeaderDiagnosisModel(String idDisease, float valueCF) {
+    public HeaderDiagnosisModel(int id, String idUser, String date, String idDisease, float valueCF) {
 
+        this.id = id;
+        this.idUser = idUser;
+        this.date = date;
         this.idDisease = idDisease;
         this.valueCF = valueCF;
+    }
+
+    public HeaderDiagnosisModel() {
+
     }
 }

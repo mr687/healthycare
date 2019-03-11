@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Healthy Care</string>
+    <string name="app_name">Heart Diseases Detector</string>
     <string name="logo_content_description">Logo</string>
     <string name="email_hint">Email</string>
     <string name="name_hint">Full name</string>

@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.company.healthycare.CustomAdapter;
 import com.company.healthycare.R;
+import com.company.healthycare.helper.DBHelper;
 import com.company.healthycare.model.DetailDiagnosaModel;
 import com.company.healthycare.model.DiseasesModel;
 import com.company.healthycare.model.HeaderDiagnosisModel;
@@ -52,10 +53,13 @@ implements View.OnClickListener {
     ProgressDialog progressDialog;
     List<RelationsModel> mRelations;
     List<DiseasesModel> mDiseases;
+    DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
+
+        dbHelper = new DBHelper(this);
 
         listView = findViewById(R.id.listview);
         indications = new ArrayList<>();
@@ -180,61 +184,30 @@ implements View.OnClickListener {
                             if(sel.getValueCF() == max){
                                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                                 final FirebaseUser mUser = mAuth.getCurrentUser();
+                                final String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
                                 HeaderDiagnosisModel hm = new HeaderDiagnosisModel();
+                                hm.setId(0);
+                                hm.setIdUser(mUser.getUid());
+                                hm.setDate(date);
                                 hm.setValueCF(sel.getValueCF());
                                 hm.setIdDisease(sel.getIdDisease());
-                                final String date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
-                                mDatabase.getReference("HeaderDiagnosis")
-                                        .child(mUser.getUid())
-                                        .child(date)
-                                        .setValue(hm)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if(task.isSuccessful()){
-                                                    for(int i =0; i< valueCF.size();i++){
-                                                        final DetailDiagnosaModel dm = new DetailDiagnosaModel();
-                                                        dm.setIdIndication(valueCF.get(i));
-                                                        mReference.child("DetailDiagnosis")
-                                                                .runTransaction(new Transaction.Handler() {
-                                                                    @NonNull
-                                                                    @Override
-                                                                    public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-                                                                        int count = 0;
-                                                                        if(mutableData.getValue() == null){
-                                                                            mutableData.setValue(0);
-                                                                        }else{
-                                                                            count = mutableData.getValue(Integer.class) + 1;
-                                                                            mutableData.setValue(count);
-                                                                        }
-                                                                        mReference.child("DetailDiagnosis")
-                                                                                .child(mUser.getUid())
-                                                                                .child(date)
-                                                                                .child(count+"")
-                                                                                .setValue(dm)
-                                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                    @Override
-                                                                                    public void onComplete(@NonNull Task<Void> task) { }
-                                                                                });
-                                                                        return Transaction.success(mutableData);
-                                                                    }
+                                dbHelper.insertToHeader(hm);
 
-                                                                    @Override
-                                                                    public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                                for(int i =0; i< valueCF.size();i++){
+                                    final DetailDiagnosaModel dm = new DetailDiagnosaModel();
+                                    dm.setId(0);
+                                    dm.setIdUser(mUser.getUid());
+                                    dm.setDate(date);
+                                    dm.setIdIndication(valueCF.get(i));
+                                    dbHelper.insertToDetail(dm);
+                                }
 
-                                                                    }
-                                                                });
-                                                    }
-                                                    progressDialog.dismiss();
-                                                    Intent it = new Intent(SurveyActivity.this,ResultSurveyActivity.class);
-                                                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    it.putExtra("date",date);
-                                                    startActivity(it);
-                                                    finish();
-                                                }
-                                            }
-                                        });
-
+                                progressDialog.dismiss();
+                                Intent it = new Intent(SurveyActivity.this,ResultSurveyActivity.class);
+                                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                it.putExtra("date",date);
+                                startActivity(it);
+                                finish();
                             }
                         }
                     }

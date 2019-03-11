@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.company.healthycare.CustomAdapter;
 import com.company.healthycare.CustomAdapterHistory;
 import com.company.healthycare.R;
+import com.company.healthycare.helper.DBHelper;
 import com.company.healthycare.model.DiseasesModel;
 import com.company.healthycare.model.HeaderDiagnosisModel;
 import com.company.healthycare.model.ListIndicationsModel;
@@ -37,11 +38,14 @@ public class HistoryActivity extends AppCompatActivity {
     DatabaseReference mReference;
     ProgressDialog progressDialog;
     ListView listView;
+    DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         setTitle("Riwayat Pemeriksaan");
+
+        dbHelper = new DBHelper(this);
 
         datas = new ArrayList<>();
         dates = new ArrayList<>();
@@ -56,6 +60,7 @@ public class HistoryActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Silahkan tunggu...");
         progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
         progressDialog.setTitle("Proses...");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,39 +79,25 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void retrieveHistory() {
         progressDialog.show();
-        mReference.child("HeaderDiagnosis")
-                .child(mUser.getUid())
+        datas.clear();
+        dates.clear();
+        for(HeaderDiagnosisModel ds : dbHelper.getDataHeaderByUser(mUser.getUid())){
+            dates.add(ds.getDate());
+            datas.add(ds);
+        }
+        mReference.child("Diseases")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        datas.clear();
-                        dates.clear();
-                        Iterable<DataSnapshot> child = dataSnapshot.getChildren();
-                        for(DataSnapshot ds : child){
-                            dates.add(ds.getKey());
-                            HeaderDiagnosisModel head = ds.getValue(HeaderDiagnosisModel.class);
-                            datas.add(head);
+                        diseases.clear();
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        for(DataSnapshot ds : children){
+                            DiseasesModel dm = ds.getValue(DiseasesModel.class);
+                            diseases.add(dm);
                         }
-                        mReference.child("Diseases")
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        diseases.clear();
-                                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                                        for(DataSnapshot ds : children){
-                                            DiseasesModel dm = ds.getValue(DiseasesModel.class);
-                                            diseases.add(dm);
-                                        }
-                                        adapter = new CustomAdapterHistory(HistoryActivity.this,datas,dates,diseases);
-                                        listView.setAdapter(adapter);
-                                        progressDialog.dismiss();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
+                        adapter = new CustomAdapterHistory(HistoryActivity.this,datas,dates,diseases);
+                        listView.setAdapter(adapter);
+                        progressDialog.dismiss();
                     }
 
                     @Override

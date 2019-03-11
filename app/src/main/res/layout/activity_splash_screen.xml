@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="v1.0"
+        android:text="v1.8.0"
         android:layout_alignParentBottom="true"
         android:textAlignment="center"/>
 </RelativeLayout>

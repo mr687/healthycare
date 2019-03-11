@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.company.healthycare.model.DetailDiagnosaModel;
 import com.company.healthycare.model.DiseasesModel;
 import com.company.healthycare.model.HeaderDiagnosisModel;
 
@@ -59,7 +57,7 @@ public class CustomAdapterHistory extends BaseAdapter {
         String date = dates.get(i);
         holder.txtDate.setText(date);
         for(DiseasesModel dm : diseases){
-            if(dm.ID.equals(headerData.idDisease)){
+            if(dm.ID.equals(headerData.getIdDisease())){
                 holder.txtDisease.setText(headerData.getIdDisease() + ". " + dm.Name);
             }
         }

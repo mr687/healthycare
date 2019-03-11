@@ -175,21 +175,42 @@ implements View.OnClickListener {
         users.setAge("");
         users.setGender("");
         users.setFullName(mUser.getDisplayName());
-        mReferences.child(mUser.getUid())
-                .setValue(users)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            progressDialog.dismiss();
-                            finish();
-                            Intent it = new Intent(LoginActivity.this,MainActivity.class);
-                            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(it);
-                        }
+        mReferences.child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    if (data.child("age").exists()) {
+                        progressDialog.dismiss();
+                        finish();
+                        Intent it = new Intent(LoginActivity.this,MainActivity.class);
+                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(it);
+                    } else {
+                        mReferences.child(mUser.getUid())
+                                .setValue(users)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            progressDialog.dismiss();
+                                            finish();
+                                            Intent it = new Intent(LoginActivity.this,MainActivity.class);
+                                            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(it);
+                                        }
+                                    }
+                                });
                     }
-                });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
     @Override

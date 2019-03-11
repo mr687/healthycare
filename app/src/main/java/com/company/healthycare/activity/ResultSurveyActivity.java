@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.company.healthycare.R;
+import com.company.healthycare.helper.DBHelper;
 import com.company.healthycare.model.DetailDiagnosaModel;
 import com.company.healthycare.model.DiseasesModel;
 import com.company.healthycare.model.HeaderDiagnosisModel;
@@ -45,7 +46,7 @@ public class ResultSurveyActivity extends AppCompatActivity {
     TextView title;
     TextView txtDisease,txtValueCF,txtPersent,txtTreatment,txtDate;
     String date;
-
+    DBHelper dbHelper;
     @Override
     public void onBackPressed() {
         finish();
@@ -55,6 +56,8 @@ public class ResultSurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_survey);
+
+        dbHelper = new DBHelper(this);
 
         date = getIntent().getExtras().getString("date");
 
@@ -74,6 +77,7 @@ public class ResultSurveyActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(ResultSurveyActivity.this);
         progressDialog.setMessage("Silahkan tunggu...");
         progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
         progressDialog.setTitle("Proses...");
 
         txtFullName = findViewById(R.id.txt_full_name);
@@ -102,70 +106,56 @@ public class ResultSurveyActivity extends AppCompatActivity {
                             DiseasesModel dm = ds.getValue(DiseasesModel.class);
                             listDisease.add(dm);
                         }
-                        mReference.child("HeaderDiagnosis")
-                                .child(mUser.getUid())
-                                .child(date)
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        HeaderDiagnosisModel header = dataSnapshot.getValue(HeaderDiagnosisModel.class);
-                                        for(DiseasesModel disease : listDisease){
-                                            if(disease.ID.equals(header.idDisease)){
-                                                final String IDDisease = disease.ID;
-                                                final float preValueCF = header.valueCF;
-                                                txtDisease.setText(": " + disease.Name);
-                                                txtValueCF.setText(": " + header.valueCF+"");
-                                                txtTreatment.setText(disease.Treatments);
-                                                mReference.child("Relations")
-                                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                                listRelation.clear();
-                                                                Iterable<DataSnapshot> childr = dataSnapshot.getChildren();
-                                                                for(DataSnapshot snap : childr){
-                                                                    RelationsModel rel = snap.getValue(RelationsModel.class);
-                                                                    listRelation.add(rel);
-                                                                }
-//
-                                                                List<Float> valueCF = new ArrayList<>();
-                                                                for(RelationsModel relation : listRelation)
-                                                                {
-                                                                    if(relation.IDDiesease.equals(IDDisease)){
-                                                                        valueCF.add(relation.ValueCF);
-                                                                    }
-                                                                }
-                                                                float persent = preValueCF / calculateCF(valueCF) * 100;
-                                                                txtPersent.setText(": " + Math.floor(persent) + " %");
-                                                                progressDialog.dismiss();
-                                                            }
-
-                                                            private float calculateCF(List<Float> disease) {
-                                                                float preP = 0 ;
-                                                                if(disease.size() >= 2){
-                                                                    preP = disease.get(0) + (disease.get(1) * (1 - disease.get(0)));
-                                                                    for(int i = 2;i<disease.size();i++){
-                                                                        preP = disease.get(i) + (preP * (1 - disease.get(i)));
-                                                                    }
-                                                                }else{
-                                                                    return 0;
-                                                                }
-                                                                return preP;
-                                                            }
-
-                                                            @Override
-                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                                            }
-                                                        });
+                        HeaderDiagnosisModel header = dbHelper.getDataHeader(mUser.getUid(),date);
+                        for(DiseasesModel disease : listDisease){
+                            if(disease.ID.equals(header.getIdDisease())){
+                                final String IDDisease = disease.ID;
+                                final float preValueCF = header.getValueCF();
+                                txtDisease.setText(": " + disease.Name);
+                                txtValueCF.setText(": " + header.getValueCF()+"");
+                                txtTreatment.setText(disease.Treatments);
+                                mReference.child("Relations")
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                listRelation.clear();
+                                                Iterable<DataSnapshot> childr = dataSnapshot.getChildren();
+                                                for(DataSnapshot snap : childr){
+                                                    RelationsModel rel = snap.getValue(RelationsModel.class);
+                                                    listRelation.add(rel);
+                                                }
+                                                List<Float> valueCF = new ArrayList<>();
+                                                for(RelationsModel relation : listRelation)
+                                                {
+                                                    if(relation.IDDiesease.equals(IDDisease)){
+                                                        valueCF.add(relation.ValueCF);
+                                                    }
+                                                }
+                                                float persent = preValueCF / calculateCF(valueCF) * 100;
+                                                txtPersent.setText(": " + Math.floor(persent) + " %");
+                                                progressDialog.dismiss();
                                             }
-                                        }
-                                    }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            private float calculateCF(List<Float> disease) {
+                                                float preP = 0 ;
+                                                if(disease.size() >= 2){
+                                                    preP = disease.get(0) + (disease.get(1) * (1 - disease.get(0)));
+                                                    for(int i = 2;i<disease.size();i++){
+                                                        preP = disease.get(i) + (preP * (1 - disease.get(i)));
+                                                    }
+                                                }else{
+                                                    return 0;
+                                                }
+                                                return preP;
+                                            }
 
-                                    }
-                                });
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+                            }
+                        }
                     }
 
                     @Override
@@ -185,49 +175,31 @@ public class ResultSurveyActivity extends AppCompatActivity {
                             IndicationsModel im = ds.getValue(IndicationsModel.class);
                             listIndication.add(im);
                         }
-                        mReference.child("DetailDiagnosis")
-                                .child(mUser.getUid())
-                                .child(date)
-                                .addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        List<DetailDiagnosaModel> listSelected = new ArrayList<>();
-                                        ArrayList<String> list = new ArrayList<>();
-                                        for(DataSnapshot data : dataSnapshot.getChildren()){
-                                            Log.d("TAGG",data.getKey()+"");
-                                            DetailDiagnosaModel selectedIndication = data.getValue(DetailDiagnosaModel.class);
-                                            listSelected.add(selectedIndication);
-                                        }
-                                        for(DetailDiagnosaModel dd : listSelected){
-                                            for(IndicationsModel ind : listIndication){
-                                                if(dd.getIdIndication().equals(ind.IDIndications)){
-                                                    list.add(ind.IDIndications + ". Anda mengalami " + ind.NameIndications);
-                                                }
-                                            }
-                                        }
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),R.layout.mytextview,list);
-                                        listView.setAdapter(adapter);
-                                        ListAdapter listAdapter = listView.getAdapter();
-                                        if(listAdapter != null){
-                                            int totalheight = 0;
-                                            for(int i = 0; i < listAdapter.getCount();i++){
-                                                View listItem  = listAdapter.getView(i, null, listView);
-                                                listItem.measure(0,0);
-                                                totalheight += listItem.getMeasuredHeight();
-                                            }
-                                            ViewGroup.LayoutParams params = listView.getLayoutParams();
-                                            params.height = totalheight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-                                            listView.setLayoutParams(params);
-                                            listView.requestLayout();
-                                        }
-                                        loadResultDiagnosis();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
+                        List<DetailDiagnosaModel> listSelected = dbHelper.getDataDetail(mUser.getUid(),date);
+                        ArrayList<String> list = new ArrayList<>();
+                        for(DetailDiagnosaModel dd : listSelected){
+                            for(IndicationsModel ind : listIndication){
+                                if(dd.getIdIndication().equals(ind.IDIndications)){
+                                    list.add(ind.IDIndications + ". Anda mengalami " + ind.NameIndications);
+                                }
+                            }
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(),R.layout.mytextview,list);
+                        listView.setAdapter(adapter);
+                        ListAdapter listAdapter = listView.getAdapter();
+                        if(listAdapter != null){
+                            int totalheight = 0;
+                            for(int i = 0; i < listAdapter.getCount();i++){
+                                View listItem  = listAdapter.getView(i, null, listView);
+                                listItem.measure(0,0);
+                                totalheight += listItem.getMeasuredHeight();
+                            }
+                            ViewGroup.LayoutParams params = listView.getLayoutParams();
+                            params.height = totalheight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+                            listView.setLayoutParams(params);
+                            listView.requestLayout();
+                        }
+                        loadResultDiagnosis();
                     }
 
                     @Override
