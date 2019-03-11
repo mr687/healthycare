@@ -102,6 +102,7 @@ implements View.OnClickListener {
             startActivity(it);
         }else if(view == btnHistory){
             Intent it = new Intent(MainActivity.this,HistoryActivity.class);
+            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(it);
         }
     }

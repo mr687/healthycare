@@ -29,8 +29,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity
 implements View.OnClickListener {
@@ -57,6 +63,7 @@ implements View.OnClickListener {
         signInButton = findViewById(R.id.btn_sign_in_with_google);
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("Processing...");
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
@@ -160,14 +167,14 @@ implements View.OnClickListener {
         });
     }
     private void successSignIn(){
-        FirebaseUser mUser = mAuth.getCurrentUser();
+        final FirebaseUser mUser = mAuth.getCurrentUser();
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference mReferences = mDatabase.getReference("users");
-        UsersModel users = new UsersModel();
-        users.setAge("");
+        final DatabaseReference mReferences = mDatabase.getReference("users");
+        final UsersModel users = new UsersModel();
         users.setEmail(mUser.getEmail());
-        users.setFullName(mUser.getDisplayName());
+        users.setAge("");
         users.setGender("");
+        users.setFullName(mUser.getDisplayName());
         mReferences.child(mUser.getUid())
                 .setValue(users)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -183,6 +190,7 @@ implements View.OnClickListener {
                         }
                     }
                 });
+
     }
     @Override
     public void onClick(View v) {

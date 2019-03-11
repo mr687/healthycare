@@ -63,6 +63,7 @@ implements View.OnClickListener {
         mReference = mDatabase.getReference();
         progressDialog = new ProgressDialog(SurveyActivity.this);
         progressDialog.setMessage("Silahkan tunggu...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("Proses...");
 
         mRelations = new ArrayList<>();

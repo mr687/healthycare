@@ -53,8 +53,10 @@ implements View.OnClickListener {
     Spinner spinGender;
     FirebaseAuth mAuth;
     TextView errorView,errorViewVerified;
+    ProgressDialog progressDialog;
     FirebaseDatabase mDatabase;
     DatabaseReference mRef;
+    boolean delPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +65,16 @@ implements View.OnClickListener {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        delPicture =  false;
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference("users");
+
+        progressDialog = new ProgressDialog(ProfileActivity.this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setTitle("Processing...");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         profileImageView = (ImageView) findViewById(R.id.profile_image_view);
@@ -87,6 +96,7 @@ implements View.OnClickListener {
     }
 
     private void loadUserInformation() {
+        progressDialog.show();
         final FirebaseUser user = mAuth.getCurrentUser();
         if(user != null){
             if(user.isEmailVerified()){
@@ -122,6 +132,7 @@ implements View.OnClickListener {
                 Glide.with(this)
                         .load(user.getPhotoUrl())
                         .into(profileImageView);
+                profileImageUrl = user.getPhotoUrl().toString();
             }
             if(user.getDisplayName() != null){
                 setTitle(user.getDisplayName());
@@ -143,6 +154,7 @@ implements View.OnClickListener {
                         }else{
                             spinGender.setSelection(1);
                         }
+                        progressDialog.dismiss();
                     }
                 }
 
@@ -189,6 +201,7 @@ implements View.OnClickListener {
         startActivityForResult(Intent.createChooser(it,"Pilih Foto Profile"),CHOOSE_IMAGE);
     }
     private void uploadImageToFirebaseStorage(){
+        progressDialog.show();
         final StorageReference profileImageRef =
                 FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis()+".jpg");
         if(uriProfileImage != null){
@@ -197,7 +210,6 @@ implements View.OnClickListener {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressBar.setVisibility(View.GONE);
                             profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -206,6 +218,7 @@ implements View.OnClickListener {
                                     Glide.with(ProfileActivity.this)
                                             .load(profileImageUrl)
                                             .into(profileImageView);
+                                    progressDialog.dismiss();
                                 }
                             });
                         }
@@ -213,7 +226,7 @@ implements View.OnClickListener {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressBar.setVisibility(View.GONE);
+                            progressDialog.dismiss();
                             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                         }
                     });
@@ -239,10 +252,12 @@ implements View.OnClickListener {
                 break;
             case R.id.change_picture_profile:
                 showImageChooser();
-                bottomSheetDialog.dismiss();
                 break;
             case R.id.delete_picture_profile:
-                bottomSheetDialog.dismiss();
+                delPicture = true;
+                Glide.with(ProfileActivity.this)
+                        .load("")
+                        .into(profileImageView);
                 break;
             case R.id.btn_save:
                 saveUserInformation();
@@ -277,8 +292,6 @@ implements View.OnClickListener {
             txtAge.requestFocus();
             return;
         }
-        final ProgressDialog progressDialog = new ProgressDialog(ProfileActivity.this);
-        progressDialog.setMessage("Loading..");
         progressDialog.show();
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null){
@@ -287,8 +300,8 @@ implements View.OnClickListener {
                 progressDialog.dismiss();
                 return;
             }
-            if(user.getPhotoUrl() != null){
-                profileImageUrl = user.getPhotoUrl().toString();
+            if(delPicture){
+                profileImageUrl = "blank";
             }
             UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayFullName)

@@ -73,6 +73,7 @@ public class ResultSurveyActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(ResultSurveyActivity.this);
         progressDialog.setMessage("Silahkan tunggu...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("Proses...");
 
         txtFullName = findViewById(R.id.txt_full_name);
@@ -176,10 +177,9 @@ public class ResultSurveyActivity extends AppCompatActivity {
 
     private void loadSelectedIndications() {
         mReference.child("Indications")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        listIndication.clear();
                         Iterable<DataSnapshot> child = dataSnapshot.getChildren();
                         for(DataSnapshot ds : child){
                             IndicationsModel im = ds.getValue(IndicationsModel.class);
@@ -188,13 +188,13 @@ public class ResultSurveyActivity extends AppCompatActivity {
                         mReference.child("DetailDiagnosis")
                                 .child(mUser.getUid())
                                 .child(date)
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                .addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                                         List<DetailDiagnosaModel> listSelected = new ArrayList<>();
                                         ArrayList<String> list = new ArrayList<>();
-                                        for(DataSnapshot data : children){
+                                        for(DataSnapshot data : dataSnapshot.getChildren()){
+                                            Log.d("TAGG",data.getKey()+"");
                                             DetailDiagnosaModel selectedIndication = data.getValue(DetailDiagnosaModel.class);
                                             listSelected.add(selectedIndication);
                                         }

@@ -55,6 +55,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Silahkan tunggu...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("Proses...");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,6 +64,7 @@ public class HistoryActivity extends AppCompatActivity {
                 String date = dates.get(i);
                 Intent it = new Intent(HistoryActivity.this,ResultSurveyActivity.class);
                 it.putExtra("date",date);
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(it);
             }
         });

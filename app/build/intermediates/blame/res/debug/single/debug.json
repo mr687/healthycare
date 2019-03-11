@@ -1840,16 +1840,16 @@
         "source": "C:\\Users\\rasdhan alfarizqi\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-16.0.1.aar\\03d37d1fa53805e623f1ea19d7b7165c\\res\\drawable-xhdpi-v4\\googleg_standard_color_18.png"
     },
     {
+        "merged": "D:\\Android\\Projects\\healthycare\\app\\build\\intermediates\\res\\merged\\debug\\layout_mytextview.xml.flat",
+        "source": "D:\\Android\\Projects\\healthycare\\app\\src\\main\\res\\layout\\mytextview.xml"
+    },
+    {
         "merged": "D:\\Android\\Projects\\healthycare\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "C:\\Users\\rasdhan alfarizqi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\8c553c46ad1b40df7fa3a7695a8277d1\\res\\drawable-mdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
         "merged": "D:\\Android\\Projects\\healthycare\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_star_half_black_36dp.png.flat",
         "source": "C:\\Users\\rasdhan alfarizqi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\8c553c46ad1b40df7fa3a7695a8277d1\\res\\drawable-xxhdpi-v4\\abc_ic_star_half_black_36dp.png"
-    },
-    {
-        "merged": "D:\\Android\\Projects\\healthycare\\app\\build\\intermediates\\res\\merged\\debug\\layout_mytextview.xml.flat",
-        "source": "D:\\Android\\Projects\\healthycare\\app\\src\\main\\res\\layout\\mytextview.xml"
     },
     {
         "merged": "D:\\Android\\Projects\\healthycare\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_part_chronometer.xml.flat",

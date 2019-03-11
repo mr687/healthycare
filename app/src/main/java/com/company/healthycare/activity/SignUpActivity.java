@@ -61,6 +61,7 @@ implements View.OnClickListener {
 
         progressDialog = new ProgressDialog(SignUpActivity.this);
         progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("Processing...");
 
         textClickLogin = findViewById(R.id.txt_click_login);
