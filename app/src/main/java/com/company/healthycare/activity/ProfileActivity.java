@@ -201,7 +201,6 @@ implements View.OnClickListener {
         startActivityForResult(Intent.createChooser(it,"Pilih Foto Profile"),CHOOSE_IMAGE);
     }
     private void uploadImageToFirebaseStorage(){
-        progressDialog.show();
         final StorageReference profileImageRef =
                 FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis()+".jpg");
         if(uriProfileImage != null){
@@ -218,7 +217,7 @@ implements View.OnClickListener {
                                     Glide.with(ProfileActivity.this)
                                             .load(profileImageUrl)
                                             .into(profileImageView);
-                                    progressDialog.dismiss();
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             });
                         }
@@ -226,7 +225,7 @@ implements View.OnClickListener {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                         }
                     });

@@ -24,6 +24,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,7 +67,6 @@ implements View.OnClickListener {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("Processing...");
         progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
 
 //        Click
         textClickCreate.setOnClickListener(this);
@@ -108,10 +108,7 @@ implements View.OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             successSignIn();
-                        } else {
                         }
-
-                        // ...
                     }
                 });
     }
@@ -175,42 +172,41 @@ implements View.OnClickListener {
         users.setAge("");
         users.setGender("");
         users.setFullName(mUser.getDisplayName());
-        mReferences.child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot data: dataSnapshot.getChildren()){
-                    if (data.child("age").exists()) {
-                        progressDialog.dismiss();
-                        finish();
-                        Intent it = new Intent(LoginActivity.this,MainActivity.class);
-                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(it);
-                    } else {
-                        mReferences.child(mUser.getUid())
-                                .setValue(users)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            progressDialog.dismiss();
-                                            finish();
-                                            Intent it = new Intent(LoginActivity.this,MainActivity.class);
-                                            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(it);
+        mReferences.child(mUser.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.hasChild("age")){
+                            progressDialog.dismiss();
+                            finish();
+                            Intent it = new Intent(LoginActivity.this,MainActivity.class);
+                            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(it);
+                        }else{
+                            mReferences.child(mUser.getUid())
+                                    .setValue(users)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                progressDialog.dismiss();
+                                                finish();
+                                                Intent it = new Intent(LoginActivity.this,MainActivity.class);
+                                                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(it);
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
 
     }
     @Override
