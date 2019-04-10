@@ -10,11 +10,28 @@ import com.company.healthycare.model.HeaderDiagnosisModel;
 
 import java.util.ArrayList;
 
+/**
+ * Penjelasan
+ *
+ * Class ini dibuat untuk membuat Helper database
+ * Digunakan untuk mempermudah penggunaan dan pengambilan data dari SQLite Database
+ *
+ */
+
 public class DBHelper extends SQLiteOpenHelper {
+
+    /**
+     * @param context
+     */
     public DBHelper(Context context) {
         super(context, "healthycare.db",null, 3);
     }
 
+
+    /**
+     * Fungsi ini akan di panggil saat class dibuat
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE HeaderDiagnosis (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -23,6 +40,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 "idUser TEXT NOT NULL, date TEXT NOT NULL, idIndication TEXT NOT NULL)");
     }
 
+    /**
+     * Fungsi ini di panggil jika diperlukan upgrade system maka table pada Sqlite akan di hapus dan di buat kembali
+     *
+     *
+     * @param db
+     * @param i
+     * @param i1
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS HeaderDiagnosis");
@@ -30,14 +55,27 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Fungsi ini digunakan untuk mengambil semua data kepala pada database sqlite
+     * dengan parameter pengambilan berdasarkan idUser dan tanggal
+     *
+     *
+     * @param idUser
+     * @param date
+     * @return
+     */
     public HeaderDiagnosisModel getDataHeader(String idUser,String date) {
-        HeaderDiagnosisModel header;
+        HeaderDiagnosisModel header; //membuat variable model untuk parameter pengambilan data
         header = new HeaderDiagnosisModel();
+        // membuat variable string dengan SQL yg diperlukan
         String selectQuery = "SELECT * FROM HeaderDiagnosis WHERE idUser='" + idUser + "' AND date='" + date + "'";
         SQLiteDatabase database = this.getWritableDatabase();
+        //mengambil data & menaruhnya di cursor (array)
         Cursor cursor = database.rawQuery(selectQuery, null);
+        //melakukan perulangan yang kemudian menguraikan array menjadi beberapa data
         if (cursor.moveToFirst()) {
             do {
+                //memasukkan perdata kedalam model parameter
                 header.setId(cursor.getInt(0));
                 header.setIdUser(cursor.getString(1));
                 header.setDate(cursor.getString(2));
@@ -47,8 +85,16 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         database.close();
+        //melakukan output
         return header;
     }
+
+    /**
+     * Fungsi ini digunakan untuk mengambil semua data yang user pernah periksa dan di outputkan menjadi array
+     *
+     * @param idUser
+     * @return
+     */
     public ArrayList<HeaderDiagnosisModel> getDataHeaderByUser(String idUser) {
         ArrayList<HeaderDiagnosisModel> header;
         header = new ArrayList<>();
@@ -91,11 +137,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return detail;
     }
 
+    /**
+     * Fungsi untuk input data ke database dengan parameter model sesuai field table
+     *
+     * @param model
+     */
     public void insertToHeader(HeaderDiagnosisModel model) {
         SQLiteDatabase database = this.getWritableDatabase();
         String queryValues = "INSERT INTO HeaderDiagnosis (id,idUser,date,idDisease,valueCF) VALUES (null, " +
                 "'" + model.getIdUser() + "', '" + model.getDate() + "', '" + model.getIdDisease() + "', " +
                 "'" + model.getValueCF() + "')";
+        //Eksekusi query
         database.execSQL(queryValues);
         database.close();
     }

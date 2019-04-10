@@ -45,6 +45,7 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         setTitle("Riwayat Pemeriksaan");
 
+        //membuat object DBHelper
         dbHelper = new DBHelper(this);
 
         datas = new ArrayList<>();
@@ -57,12 +58,15 @@ public class HistoryActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+
+        //membuat object progress dialog, untuk menampilkan tampilan loading ketika program sedang memproses data
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Silahkan tunggu...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Proses...");
 
+        //membuat fungsi ketika item pada listview di klik akan terjadi beberapa statement
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -74,29 +78,42 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+        //memanggil fungsi
         retrieveHistory();
     }
 
     private void retrieveHistory() {
+        //menampilkan tampilan loading pada awal fungsi
         progressDialog.show();
         datas.clear();
         dates.clear();
+
+        //melakukan perulangan pada data yang di dapat pada SQlite database sesuai user id yang sedang login
         for(HeaderDiagnosisModel ds : dbHelper.getDataHeaderByUser(mUser.getUid())){
+            //per item data di tambahkan ke array
             dates.add(ds.getDate());
+            //array di tambahkan ke array lagi
             datas.add(ds);
         }
+
+        //Fungsi dari firebase untuk mengambil data dari realtime database
         mReference.child("Diseases")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         diseases.clear();
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        //melakukan perulangan data yang di ambil dan dimasukkan ke dalam array
                         for(DataSnapshot ds : children){
                             DiseasesModel dm = ds.getValue(DiseasesModel.class);
                             diseases.add(dm);
                         }
+                        //kemudian oper array ke CustomAdapterHistory untuk kemudian di proses dan di tampilkan
+                        //sesuai perintah yang sudah di atur
                         adapter = new CustomAdapterHistory(HistoryActivity.this,datas,dates,diseases);
+                        //Menambah adapter ke listview
                         listView.setAdapter(adapter);
+                        //menghilangkan tampilan loading
                         progressDialog.dismiss();
                     }
 
